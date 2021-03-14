@@ -1,5 +1,6 @@
 package com.heyletscode.chattutorial;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -16,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -31,13 +33,15 @@ import okhttp3.WebSocketListener;
 
 public class ChatActivity extends AppCompatActivity implements TextWatcher {
 
-    private String name;
+    private String name, roomName,roomPwd;
     private WebSocket webSocket;
     private EditText messageEdit;
     private View sendBtn, pickImgBtn;
     private RecyclerView recyclerView;
     private int IMAGE_REQUEST_ID = 1;
     private MessageAdapter messageAdapter;
+    private Context context=this.getBaseContext();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,17 +49,19 @@ public class ChatActivity extends AppCompatActivity implements TextWatcher {
         setContentView(R.layout.activity_chat);
 
         name = getIntent().getStringExtra("name");
+        roomName =getIntent().getStringExtra("room");
+        roomPwd=getIntent().getStringExtra("pwd");
         initiateSocketConnection();
-
     }
 
     private void initiateSocketConnection() {
 
         OkHttpClient client = new OkHttpClient();
-        String SERVER_PATH = "ws://192.168.29.23:3000";
+        String SERVER_PATH = "ws://192.168.29.23:3000/"+ roomName;
+        //if(!roomPwd.isEmpty())
+          //  SERVER_PATH+="&pwd="+roomPwd;
         Request request = new Request.Builder().url(SERVER_PATH).build();
         webSocket = client.newWebSocket(request, new SocketListener());
-
     }
 
     @Override
@@ -100,7 +106,6 @@ public class ChatActivity extends AppCompatActivity implements TextWatcher {
         @Override
         public void onOpen(WebSocket webSocket, Response response) {
             super.onOpen(webSocket, response);
-
             runOnUiThread(() -> {
                 Toast.makeText(ChatActivity.this,
                         "Socket Connection Successful!",
@@ -109,6 +114,12 @@ public class ChatActivity extends AppCompatActivity implements TextWatcher {
                 initializeView();
             });
 
+        }
+
+        @Override
+        public void onFailure(WebSocket webSocket, Throwable t, @Nullable Response response) {
+            super.onFailure(webSocket, t, response);
+            Toast.makeText(context,"Incorrect room name or password.Please try again",Toast.LENGTH_SHORT).show();
         }
 
         @Override

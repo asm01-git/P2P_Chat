@@ -1,31 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+<RelativeLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_container">
+
+    <RelativeLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
 
 
     <EditText
+        android:id="@+id/editText_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:hint="Enter your name"
-        android:textSize="16sp"
-        android:id="@+id/editText"
         android:background="@drawable/edittext_design"
-        android:padding="10dp"/>
+        android:hint="Enter your name"
+        android:padding="10dp"
+        android:textSize="16sp" />
 
-    <Button
+    <EditText
+        android:id="@+id/editText_room_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editText"
+        android:layout_below="@id/editText_username"
+        android:layout_margin="16dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/edittext_design"
+        android:hint="Enter the room you want "
+        android:padding="10dp"
+        android:textSize="16sp" />
+        <EditText
+            android:id="@+id/editText_room_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/editText_room_name"
+            android:layout_margin="16dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edittext_design"
+            android:hint="Enter the room password"
+            android:padding="10dp"
+            android:textSize="16sp" />
+    <Button
+        android:id="@+id/enterBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editText_room_password"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        android:text="Enter room"
-        android:textColor="#ffffff"
         android:background="@color/colorPrimaryDark"
-        android:id="@+id/enterBtn"/>
-
+        android:text="Enter room"
+        android:textColor="#ffffff" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/or_text"
+            android:text="OR"
+            android:textSize="24sp"
+            android:textColor="@color/colorPrimary"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/enterBtn"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"/>
+        <Button
+            android:id="@+id/createRoomBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/or_text"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:background="@color/colorPrimaryDark"
+            android:text="Create your own room"
+            android:textColor="#ffffff" />
+</RelativeLayout>
 </RelativeLayout>
